@@ -4,6 +4,8 @@ import FeatureSection from "./../../../packages/ui/src/FeatureSection";
 import Footer from "./../../../packages/ui/src/Footer";
 import { FaLock, FaChartLine, FaHeadset } from "react-icons/fa";
 
+import client from "@repo/db/client";
+
 function LandingPage() {
   const features = [
     {
@@ -53,7 +55,7 @@ function LandingPage() {
           title="Get Started Today"
           description="Sign up now and take control of your financial future with FinTech Solutions."
           buttonText="Sign Up Now"
-          buttonLink="#signup"
+          buttonLink="/signup"
         />
       </div>
 
