@@ -1,9 +1,11 @@
 "use client";
 
-import { signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
 export const Appbar = () => {
+  const { data: session, status } = useSession();
+
   const handleSignIn = () => {
     signIn(); // Directly opens the sign-in form
   };
@@ -21,24 +23,38 @@ export const Appbar = () => {
         </Link>
         {/* Navigation Links */}
         <nav className="flex items-center space-x-4">
-          <Link href="/profile" className="text-white hover:text-gray-300 font-medium transition duration-300">
-            Profile
-          </Link>
-          {/* Conditional rendering based on authentication status */}
-          <button
-            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </button>
-          <button
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
-            onClick={handleSignIn}
-          >
-            Sign In
-          </button>
+          {status === "loading" ? (
+            <p className="text-white">Loading...</p>
+          ) : session?.user ? (
+            <>
+              {/* User is signed in */}
+              <Link
+                href="/profile"
+                className="text-white hover:text-gray-300 font-medium transition duration-300"
+              >
+                Profile
+              </Link>
+              <button
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              {/* User is not signed in */}
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+                onClick={handleSignIn}
+              >
+                Sign In
+              </button>
+            </>
+          )}
         </nav>
       </div>
+      <div className="text-white">{JSON.stringify(session)}</div>
     </header>
   );
 };
