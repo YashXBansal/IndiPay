@@ -54,7 +54,6 @@ export const Appbar = () => {
           )}
         </nav>
       </div>
-      <div className="text-white">{JSON.stringify(session)}</div>
     </header>
   );
 };
