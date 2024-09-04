@@ -27,7 +27,7 @@ const ProfileContent = ({ session }: { session: any }) => {
             <strong>Email:</strong> {session.user.email}
           </p>
           <p className="text-gray-400 text-center">
-            <strong>Phone Number:</strong> {session.user.email}
+            <strong>Phone Number:</strong> {session.user.number}
           </p>
         </div>
         <div className="flex justify-center gap-4 mt-8">
