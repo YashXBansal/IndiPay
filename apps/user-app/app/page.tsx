@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { useSession } from "next-auth/react";
 import CTASection from "./../../../packages/ui/src/CTASection";
 import FeatureSection from "./../../../packages/ui/src/FeatureSection";
 import Footer from "./../../../packages/ui/src/Footer";
@@ -6,6 +8,9 @@ import { FaLock, FaChartLine, FaHeadset } from "react-icons/fa";
 import { Appbar } from "../../../packages/ui/src/Appbar";
 
 function LandingPage() {
+  const { data: session, status } = useSession();
+
+  // Define features
   const features = [
     {
       title: "Secure Payments",
@@ -26,6 +31,9 @@ function LandingPage() {
       icon: <FaHeadset size={32} />,
     },
   ];
+
+  // Determine which CTA section to show
+  const showFirstCTA = !session?.user;
 
   return (
     <div className="bg-gray-100 text-gray-900">
@@ -50,12 +58,21 @@ function LandingPage() {
       </div>
 
       <div>
-        <CTASection
-          title="Get Started Today"
-          description="Sign up now and take control of your financial future with FinTech Solutions."
-          buttonText="Sign Up Now"
-          buttonLink="/signup"
-        />
+        {showFirstCTA ? (
+          <CTASection
+            title="Get Started Today"
+            description="Sign up now and take control of your financial future with FinTech Solutions."
+            buttonText="Sign Up Now"
+            buttonLink="/signup"
+          />
+        ) : (
+          <CTASection
+            title="Tap to Start"
+            description=""
+            buttonText="Start Paying"
+            buttonLink="/payments"
+          />
+        )}
       </div>
 
       <div>
