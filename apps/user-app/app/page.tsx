@@ -3,8 +3,7 @@ import CTASection from "./../../../packages/ui/src/CTASection";
 import FeatureSection from "./../../../packages/ui/src/FeatureSection";
 import Footer from "./../../../packages/ui/src/Footer";
 import { FaLock, FaChartLine, FaHeadset } from "react-icons/fa";
-
-import client from "@repo/db/client";
+import { Appbar } from "../../../packages/ui/src/Appbar";
 
 function LandingPage() {
   const features = [
@@ -30,7 +29,7 @@ function LandingPage() {
 
   return (
     <div className="bg-gray-100 text-gray-900">
-      {/* Hero Section */}
+      <Appbar />
       <section className="bg-black text-white py-20">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-5xl font-bold mb-4">Welcome to IndiPay</h1>
