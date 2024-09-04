@@ -13,25 +13,27 @@ export default function LoginPage() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    setError(null); // Clear any previous error
+    setError(null); 
 
     const formData = new FormData(event.currentTarget);
-    const phone = formData.get("phone") as string;
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const number = formData.get("number") as string;
     const password = formData.get("password") as string;
 
     try {
       const result = await signIn("credentials", {
         redirect: false,
-        phone,
-        password,
+        number,  
+        password, 
+        name,     
+        email,    
       });
 
       if (result?.ok) {
-        // Redirect to home page after successful login
         router.push("/");
       } else {
-        // Handle login failure
-        setError("Invalid phone number or password.");
+        setError("Invalid credentials. Please try again.");
         console.error(result?.error);
       }
     } catch (error) {
@@ -55,11 +57,11 @@ export default function LoginPage() {
             className="text-4xl font-extrabold text-center mb-8"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            <span className=" text-purple-600 ">Welcome to</span>{" "}
+            <span className="text-purple-600">Welcome to</span>{" "}
             <span style={{ color: "#FF9933" }}>I</span>
             <span style={{ color: "#FF9933" }}>n</span>
             <span style={{ color: "#FF9933" }}>d</span>
-            <span className=" text-blue-600 ">i</span>
+            <span className="text-blue-600">i</span>
             <span style={{ color: "#138808" }}>P</span>
             <span style={{ color: "#138808" }}>a</span>
             <span style={{ color: "#138808" }}>y</span>
@@ -68,16 +70,48 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="name"
+                className="block text-sm font-semibold text-gray-300"
+              >
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                className="mt-2 px-4 py-3 border border-gray-600 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full bg-gray-700 text-white"
+                style={{ fontFamily: "Roboto, sans-serif" }}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-semibold text-gray-300"
+              >
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="mt-2 px-4 py-3 border border-gray-600 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full bg-gray-700 text-white"
+                style={{ fontFamily: "Roboto, sans-serif" }}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="number"
                 className="block text-sm font-semibold text-gray-300"
               >
                 Phone Number
               </label>
               <input
-                id="phone"
-                name="phone"
-                type="tel"
-                autoComplete="tel"
+                id="number"
+                name="number"
+                type="text"
                 required
                 className="mt-2 px-4 py-3 border border-gray-600 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full bg-gray-700 text-white"
                 style={{ fontFamily: "Roboto, sans-serif" }}
