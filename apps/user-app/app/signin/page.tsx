@@ -15,7 +15,7 @@ export default function LoginPage() {
     setLoading(true);
     setError(null); 
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const number = formData.get("number") as string;
